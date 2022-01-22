@@ -1,0 +1,83 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = []
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  password  String
+  firstname String?
+  lastname  String?
+  posts     Post[]
+  role      Role
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean
+  title     String
+  content   String?
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Detail {
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  name            String
+  img             String
+  price           Int
+  sentence        String
+  menu            Menu?
+  DetailOnOptions DetailOnOptions[]
+}
+
+model Menu {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  img       String
+  detail    Detail?  @relation(fields: [detailId], references: [id])
+  detailId  Int?      @unique
+  category  String
+}
+
+model Option {
+  id        Int               @id @default(autoincrement())
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  name      String
+  details   DetailOnOptions[]
+}
+
+model DetailOnOptions {
+  option     Option   @relation(fields: [optionId], references: [id])
+  optionId   Int
+  detail     Detail   @relation(fields: [detailId], references: [id])
+  detailId   Int
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([optionId, detailId])
+}

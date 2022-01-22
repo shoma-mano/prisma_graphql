@@ -1,0 +1,83 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  email String [unique, not null]
+  password String [not null]
+  firstname String
+  lastname String
+  posts Post [not null]
+  role Role [not null]
+}
+
+Table Post {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  published Boolean [not null]
+  title String [not null]
+  content String
+  author User
+  authorId String
+}
+
+Table Detail {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  img String [not null]
+  price Int [not null]
+  sentence String [not null]
+  menu Menu
+  DetailOnOptions DetailOnOptions [not null]
+}
+
+Table Menu {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  img String [not null]
+  detail Detail
+  detailId Int [unique]
+  category String [not null]
+}
+
+Table Option {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  details DetailOnOptions [not null]
+}
+
+Table DetailOnOptions {
+  option Option [not null]
+  optionId Int [not null]
+  detail Detail [not null]
+  detailId Int [not null]
+  assignedAt DateTime [default: `now()`, not null]
+  assignedBy String [not null]
+
+  indexes {
+    (optionId, detailId) [pk]
+  }
+}
+
+Enum Role {
+  ADMIN
+  USER
+}
+
+Ref: Post.authorId > User.id
+
+Ref: Menu.detailId - Detail.id
+
+Ref: DetailOnOptions.optionId > Option.id
+
+Ref: DetailOnOptions.detailId > Detail.id

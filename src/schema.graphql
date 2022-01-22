@@ -1,0 +1,213 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Auth {
+  """JWT access token"""
+  accessToken: String!
+
+  """JWT refresh token"""
+  refreshToken: String!
+  user: User!
+}
+
+input ChangePasswordInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+input CreateDetailInput {
+  img: String!
+  name: String!
+  price: Int!
+  sentence: String!
+}
+
+input CreateMenuInput {
+  category: String!
+  img: String!
+  name: String!
+}
+
+input CreatePostInput {
+  content: String!
+  title: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Detail {
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  img: String!
+  menu: Menu
+  name: String!
+  price: Int!
+  sentence: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Menu {
+  category: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  detail: Detail
+  detailId: Int!
+  id: ID!
+  img: String!
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+type Mutation {
+  changePassword(data: ChangePasswordInput!): User!
+  createDetail(createDetailInput: CreateDetailInput!): Detail!
+  createMenu(createMenuInput: CreateMenuInput!): Menu!
+  createPost(data: CreatePostInput!): Post!
+  login(data: LoginInput!): Auth!
+  refreshToken(token: String!): Token!
+  removeDetail(id: Int!): Detail!
+  removeMenu(id: Int!): Menu!
+  signup(data: SignupInput!): Auth!
+  updateDetail(updateDetailInput: UpdateDetailInput!): Detail!
+  updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
+  updateUser(data: UpdateUserInput!): User!
+}
+
+"""
+Possible directions in which to order a list of items when provided an `orderBy` argument.
+"""
+enum OrderDirection {
+  asc
+  desc
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Post {
+  author: User!
+  content: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  id: ID!
+  published: Boolean!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
+
+type PostConnection {
+  edges: [PostEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post!
+}
+
+input PostOrder {
+  direction: OrderDirection!
+  field: PostOrderField!
+}
+
+"""Properties by which post connections can be ordered."""
+enum PostOrderField {
+  content
+  createdAt
+  id
+  published
+  title
+  updatedAt
+}
+
+type Query {
+  detail(id: Int!): Detail!
+  details: [Detail!]!
+  hello(name: String!): String!
+  helloWorld: String!
+  me: User!
+  menu(id: Int!): Menu!
+  post(postId: String!): Post!
+  publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
+  userPosts(userId: String!): [Post!]!
+}
+
+"""User role"""
+enum Role {
+  ADMIN
+  USER
+}
+
+input SignupInput {
+  email: String!
+  firstname: String
+  lastname: String
+  password: String!
+}
+
+type Subscription {
+  postCreated: Post!
+}
+
+type Token {
+  """JWT access token"""
+  accessToken: String!
+
+  """JWT refresh token"""
+  refreshToken: String!
+}
+
+input UpdateDetailInput {
+  id: Int!
+  img: String
+  name: String
+  price: Int
+  sentence: String
+}
+
+input UpdateMenuInput {
+  category: String
+  id: Int!
+  img: String
+  name: String
+}
+
+input UpdateUserInput {
+  firstname: String
+  lastname: String
+}
+
+type User {
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  email: String!
+  firstname: String
+  id: ID!
+  lastname: String
+  posts: [Post!]!
+  role: Role!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
+}
