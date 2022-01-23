@@ -1,0 +1,59 @@
+import { Injectable } from '@nestjs/common';
+import { CreateDetailInput } from './dto/create-detail.input';
+import { UpdateDetailInput } from './dto/update-detail.input';
+import { PrismaService } from 'nestjs-prisma';
+
+@Injectable()
+export class DetailService {
+  constructor(private prisma: PrismaService) {}
+
+  create(createDetailInput: CreateDetailInput) {
+    return this.prisma.detail.create({
+      data: {
+        ...createDetailInput,
+      },
+    });
+  }
+
+  async findAll() {
+    return await this.prisma.detail.findMany();
+  }
+
+  async findByOptionId(id: number) {
+    return await this.prisma.detailOnOptions.findMany({
+      where: {
+        detail: {
+          id: { in: [id] },
+        },
+      },
+    });
+  }
+
+  async findByOptionID(id: number) {
+    return await this.prisma.detail.findMany({
+      where: {
+        options: {
+          some: {
+            optionId: {
+              equals: id,
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async findOne(id: number) {
+    return await this.prisma.detail.findUnique({
+      where: { id: id },
+    });
+  }
+
+  update(id: number, updateDetailInput: UpdateDetailInput) {
+    return `This action updates a #${id} detail`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} detail`;
+  }
+}

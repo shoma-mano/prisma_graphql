@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { DetailsService } from './details.service';
+import { DetailService } from './detail.service';
 import { DetailsResolver } from './details.resolver';
 
 @Module({
-  providers: [DetailsResolver, DetailsService]
+  providers: [DetailsResolver, DetailService]
 })
 export class DetailsModule {}

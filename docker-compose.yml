@@ -1,28 +1,64 @@
-version: '3.7'
+version: '3.8'
+
 services:
-  nest-api:
-    container_name: nest-api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    depends_on:
-      - postgres
-    env_file:
-      - .env
+  #  dev:
+  #    container_name: nestjs_api_dev
+  #    image: nestjs-api-dev:1.0.0
+  #    build:
+  #      context: .
+  #      target: development
+  #      dockerfile: ./Dockerfile
+  #    command: npm run start:debug
+  #    depends_on:
+  #      - db
+  #    ports:
+  #      - 3100:3100
+  #      - 9229:9229
+  #    networks:
+  #      - nesjs-network
+  #    volumes:
+  #      - .:/usr/src/app
+  #      - /usr/src/app/node_modules
+  #    restart: unless-stopped
 
-  postgres:
-    image: postgres:13
-    container_name: postgres
-    restart: always
+  db:
+    image: mysql:8.0
+    container_name: mysql_host
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_TCP_PORT: 3308
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - nesjs-network
+    #    volumes:
+    #      - type: bind
+    #        source: "./sql"
+    #        target: "/sql"
     ports:
-      - 5432:5432
-    env_file:
-      - .env
-    volumes:
-      - postgres:/var/lib/postgresql/data
+      - 3308:3308
 
-volumes:
-  postgres:
-    name: nest-db
+
+#  prod:
+#    container_name: nestjs_api_prod
+#    image: nestjs-api-prod:1.0.0
+#    build:
+#      context: .
+#      target: production
+#      dockerfile: ./Dockerfile
+#    command: npm run start:prod
+#    ports:
+#      - 3000:3000
+#      - 9229:9229
+#    networks:
+#      - nesjs-network
+#    volumes:
+#      - .:/usr/src/app
+#      - /usr/src/app/node_modules
+#    restart: unless-stopped
+
+networks:
+  nesjs-network:

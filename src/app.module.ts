@@ -14,6 +14,7 @@ import { PrismaModule } from 'nestjs-prisma';
 import { loggingMiddleware } from './logging.middleware';
 import { DetailsModule } from './details/details.module';
 import { MenuModule } from './menu/menu.module';
+import { OptionModule } from './option/option.module';
 
 
 @Module({
@@ -49,6 +50,7 @@ import { MenuModule } from './menu/menu.module';
     PostModule,
     DetailsModule,
     MenuModule,
+    OptionModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver, DateScalar],

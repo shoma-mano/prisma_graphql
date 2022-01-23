@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field, ObjectType } from '@nestjs/graphql';
 import { Menu } from '../../menu/entities/menu.entity';
 
 @InputType()

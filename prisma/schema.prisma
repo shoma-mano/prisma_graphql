@@ -8,8 +8,19 @@ generator client {
   // previewFeatures = []
 }
 
+
 generator dbml {
   provider = "prisma-dbml-generator"
+}
+
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+    noAtomicOperations=true
+}
+
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
 }
 
 model User {
@@ -19,6 +30,7 @@ model User {
   email     String   @unique
   password  String
   firstname String?
+  ///苗字
   lastname  String?
   posts     Post[]
   role      Role
@@ -40,6 +52,7 @@ enum Role {
   USER
 }
 
+///商品詳細ページ
 model Detail {
   id              Int               @id @default(autoincrement())
   createdAt       DateTime          @default(now())
@@ -49,7 +62,7 @@ model Detail {
   price           Int
   sentence        String
   menu            Menu?
-  DetailOnOptions DetailOnOptions[]
+  options DetailOnOptions[]
 }
 
 model Menu {
@@ -59,6 +72,7 @@ model Menu {
   name      String
   img       String
   detail    Detail?  @relation(fields: [detailId], references: [id])
+  ///商品詳細ページ
   detailId  Int?      @unique
   category  String
 }

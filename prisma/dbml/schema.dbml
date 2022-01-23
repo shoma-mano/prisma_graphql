@@ -9,7 +9,7 @@ Table User {
   email String [unique, not null]
   password String [not null]
   firstname String
-  lastname String
+  lastname String [note: '苗字']
   posts Post [not null]
   role Role [not null]
 }
@@ -34,7 +34,9 @@ Table Detail {
   price Int [not null]
   sentence String [not null]
   menu Menu
-  DetailOnOptions DetailOnOptions [not null]
+  options DetailOnOptions [not null]
+
+  Note: '商品詳細ページ'
 }
 
 Table Menu {
@@ -44,7 +46,7 @@ Table Menu {
   name String [not null]
   img String [not null]
   detail Detail
-  detailId Int [unique]
+  detailId Int [unique, note: '商品詳細ページ']
   category String [not null]
 }
 

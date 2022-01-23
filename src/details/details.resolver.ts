@@ -1,12 +1,12 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { DetailsService } from './details.service';
+import { DetailService } from './detail.service';
 import { Detail } from './entities/detail.entity';
 import { CreateDetailInput } from './dto/create-detail.input';
 import { UpdateDetailInput } from './dto/update-detail.input';
 
 @Resolver(() => Detail)
 export class DetailsResolver {
-  constructor(private readonly detailsService: DetailsService) {}
+  constructor(private readonly detailsService: DetailService) {}
 
   @Mutation(() => Detail)
   createDetail(

@@ -8,5 +8,4 @@ export class Detail extends BaseModel {
   img: string;
   price: number;
   sentence: string;
-  menu?: Menu;
 }

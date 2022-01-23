@@ -29,6 +29,11 @@ input CreateMenuInput {
   name: String!
 }
 
+input CreateOptionInput {
+  details: [CreateDetailInput!]
+  name: String!
+}
+
 input CreatePostInput {
   content: String!
   title: String!
@@ -42,7 +47,6 @@ type Detail {
   createdAt: Date!
   id: ID!
   img: String!
-  menu: Menu
   name: String!
   price: Int!
   sentence: String!
@@ -75,15 +79,29 @@ type Mutation {
   changePassword(data: ChangePasswordInput!): User!
   createDetail(createDetailInput: CreateDetailInput!): Detail!
   createMenu(createMenuInput: CreateMenuInput!): Menu!
+  createOption(createOptionInput: CreateOptionInput!): Option!
   createPost(data: CreatePostInput!): Post!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   removeDetail(id: Int!): Detail!
   removeMenu(id: Int!): Menu!
+  removeOption(id: Int!): Option!
   signup(data: SignupInput!): Auth!
   updateDetail(updateDetailInput: UpdateDetailInput!): Detail!
   updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
+  updateOption(updateOptionInput: UpdateOptionInput!): Option!
   updateUser(data: UpdateUserInput!): User!
+}
+
+type Option {
+  """Identifies the date and time when the object was created."""
+  createdAt: Date!
+  details: [Detail!]
+  id: ID!
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: Date!
 }
 
 """
@@ -148,6 +166,8 @@ type Query {
   helloWorld: String!
   me: User!
   menu(id: Int!): Menu!
+  option(id: Int!): Option!
+  options: [Option!]!
   post(postId: String!): Post!
   publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
   userPosts(userId: String!): [Post!]!
@@ -190,6 +210,12 @@ input UpdateMenuInput {
   category: String
   id: Int!
   img: String
+  name: String
+}
+
+input UpdateOptionInput {
+  details: [CreateDetailInput!]
+  id: Int!
   name: String
 }
 
