@@ -8,19 +8,39 @@ generator client {
   // previewFeatures = []
 }
 
-
 generator dbml {
   provider = "prisma-dbml-generator"
 }
 
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
-    noAtomicOperations=true
+  provider           = "node node_modules/prisma-nestjs-graphql"
+  output             = "../src/@generated/prisma-nestjs-graphql"
+  noAtomicOperations = true
 }
 
 generator docs {
   provider = "node node_modules/prisma-docs-generator"
+}
+
+model Store {
+  id        Int             @id @default(autoincrement())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  latitude  Int
+  longitude Int
+  name      String
+  img       String?
+  menus     StoresOnMenus[]
+}
+
+model StoresOnMenus {
+  store    Store   @relation(fields: [storeId], references: [id])
+  storeId  Int
+  menu     Menu    @relation(fields: [menuId], references: [id])
+  menuId   Int
+  isActive Boolean
+
+  @@id([storeId, menuId])
 }
 
 model User {
@@ -32,19 +52,7 @@ model User {
   firstname String?
   ///苗字
   lastname  String?
-  posts     Post[]
   role      Role
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean
-  title     String
-  content   String?
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String?
 }
 
 enum Role {
@@ -54,38 +62,39 @@ enum Role {
 
 ///商品詳細ページ
 model Detail {
-  id              Int               @id @default(autoincrement())
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  name            String
-  img             String
-  price           Int
-  sentence        String
-  menu            Menu?
-  options DetailOnOptions[]
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  name      String
+  img       String
+  price     Int
+  sentence  String
+  menu      Menu?
+  options   DetailOnOption[]
 }
 
 model Menu {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int             @id @default(autoincrement())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
   name      String
   img       String
-  detail    Detail?  @relation(fields: [detailId], references: [id])
+  detail    Detail?         @relation(fields: [detailId], references: [id])
   ///商品詳細ページ
-  detailId  Int?      @unique
+  detailId  Int?            @unique
   category  String
+  stores    StoresOnMenus[]
 }
 
 model Option {
-  id        Int               @id @default(autoincrement())
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   name      String
-  details   DetailOnOptions[]
+  details   DetailOnOption[]
 }
 
-model DetailOnOptions {
+model DetailOnOption {
   option     Option   @relation(fields: [optionId], references: [id])
   optionId   Int
   detail     Detail   @relation(fields: [detailId], references: [id])

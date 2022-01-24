@@ -13,7 +13,7 @@ export class MenuResolver {
     return this.menuService.create(createMenuInput);
   }
 
-  @Query(() => [Menu], { name: 'menu' })
+  @Query(() => [Menu], { name: 'menus' })
   findAll() {
     return this.menuService.findAll();
   }

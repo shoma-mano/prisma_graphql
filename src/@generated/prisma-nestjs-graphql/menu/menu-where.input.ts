@@ -5,6 +5,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DetailRelationFilter } from '../detail/detail-relation-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { StoresOnMenusListRelationFilter } from '../stores-on-menus/stores-on-menus-list-relation-filter.input';
 
 @InputType()
 export class MenuWhereInput {
@@ -41,4 +42,7 @@ export class MenuWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     category?: StringFilter;
+
+    @Field(() => StoresOnMenusListRelationFilter, {nullable:true})
+    stores?: StoresOnMenusListRelationFilter;
 }

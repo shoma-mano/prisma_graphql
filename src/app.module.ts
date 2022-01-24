@@ -4,7 +4,6 @@ import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
 import { AuthModule } from './resolvers/auth/auth.module';
 import { UserModule } from './resolvers/user/user.module';
-import { PostModule } from './resolvers/post/post.module';
 import { AppResolver } from './resolvers/app.resolver';
 import { DateScalar } from './common/scalars/date.scalar';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -15,6 +14,7 @@ import { loggingMiddleware } from './logging.middleware';
 import { DetailsModule } from './details/details.module';
 import { MenuModule } from './menu/menu.module';
 import { OptionModule } from './option/option.module';
+import { StoreModule } from './store/store.module';
 
 
 @Module({
@@ -47,10 +47,10 @@ import { OptionModule } from './option/option.module';
 
     AuthModule,
     UserModule,
-    PostModule,
     DetailsModule,
     MenuModule,
     OptionModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver, DateScalar],

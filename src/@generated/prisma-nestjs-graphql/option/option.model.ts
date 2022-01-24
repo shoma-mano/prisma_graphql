@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { DetailOnOptions } from '../detail-on-options/detail-on-options.model';
+import { DetailOnOption } from '../detail-on-option/detail-on-option.model';
 import { OptionCount } from './option-count.output';
 
 @ObjectType()
@@ -19,8 +19,8 @@ export class Option {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => [DetailOnOptions], {nullable:true})
-    details?: Array<DetailOnOptions>;
+    @Field(() => [DetailOnOption], {nullable:true})
+    details?: Array<DetailOnOption>;
 
     @Field(() => OptionCount, {nullable:false})
     _count?: OptionCount;

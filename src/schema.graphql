@@ -34,9 +34,9 @@ input CreateOptionInput {
   name: String!
 }
 
-input CreatePostInput {
-  content: String!
-  title: String!
+input CreateStoreInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 """Date custom scalar type"""
@@ -70,6 +70,7 @@ type Menu {
   id: ID!
   img: String!
   name: String!
+  stores: [Store!]!
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: Date!
@@ -80,16 +81,18 @@ type Mutation {
   createDetail(createDetailInput: CreateDetailInput!): Detail!
   createMenu(createMenuInput: CreateMenuInput!): Menu!
   createOption(createOptionInput: CreateOptionInput!): Option!
-  createPost(data: CreatePostInput!): Post!
+  createStore(createStoreInput: CreateStoreInput!): Store!
   login(data: LoginInput!): Auth!
   refreshToken(token: String!): Token!
   removeDetail(id: Int!): Detail!
   removeMenu(id: Int!): Menu!
   removeOption(id: Int!): Option!
+  removeStore(id: Int!): Store!
   signup(data: SignupInput!): Auth!
   updateDetail(updateDetailInput: UpdateDetailInput!): Detail!
   updateMenu(updateMenuInput: UpdateMenuInput!): Menu!
   updateOption(updateOptionInput: UpdateOptionInput!): Option!
+  updateStore(updateStoreInput: UpdateStoreInput!): Store!
   updateUser(data: UpdateUserInput!): User!
 }
 
@@ -102,21 +105,6 @@ type Option {
 
   """Identifies the date and time when the object was last updated."""
   updatedAt: Date!
-}
-
-"""
-Possible directions in which to order a list of items when provided an `orderBy` argument.
-"""
-enum OrderDirection {
-  asc
-  desc
-}
-
-type PageInfo {
-  endCursor: String
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
 }
 
 type Post {
@@ -133,32 +121,6 @@ type Post {
   updatedAt: Date!
 }
 
-type PostConnection {
-  edges: [PostEdge!]
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-type PostEdge {
-  cursor: String!
-  node: Post!
-}
-
-input PostOrder {
-  direction: OrderDirection!
-  field: PostOrderField!
-}
-
-"""Properties by which post connections can be ordered."""
-enum PostOrderField {
-  content
-  createdAt
-  id
-  published
-  title
-  updatedAt
-}
-
 type Query {
   detail(id: Int!): Detail!
   details: [Detail!]!
@@ -166,11 +128,11 @@ type Query {
   helloWorld: String!
   me: User!
   menu(id: Int!): Menu!
+  menus: [Menu!]!
   option(id: Int!): Option!
   options: [Option!]!
-  post(postId: String!): Post!
-  publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrder, query: String, skip: Int): PostConnection!
-  userPosts(userId: String!): [Post!]!
+  store(id: Int!): Store!
+  stores: [Store!]!
 }
 
 """User role"""
@@ -186,8 +148,15 @@ input SignupInput {
   password: String!
 }
 
-type Subscription {
-  postCreated: Post!
+type Store {
+  createdAt: Date!
+  id: ID!
+  img: String
+  latitude: Int!
+  longitude: Int!
+  menus: [Menu!]
+  name: String!
+  updatedAt: Date!
 }
 
 type Token {
@@ -217,6 +186,12 @@ input UpdateOptionInput {
   details: [CreateDetailInput!]
   id: Int!
   name: String
+}
+
+input UpdateStoreInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateUserInput {

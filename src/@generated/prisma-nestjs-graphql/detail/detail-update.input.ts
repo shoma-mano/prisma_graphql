@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { MenuUpdateOneWithoutDetailInput } from '../menu/menu-update-one-without-detail.input';
-import { DetailOnOptionsUpdateManyWithoutDetailInput } from '../detail-on-options/detail-on-options-update-many-without-detail.input';
+import { DetailOnOptionUpdateManyWithoutDetailInput } from '../detail-on-option/detail-on-option-update-many-without-detail.input';
 
 @InputType()
 export class DetailUpdateInput {
@@ -28,6 +28,6 @@ export class DetailUpdateInput {
     @Field(() => MenuUpdateOneWithoutDetailInput, {nullable:true})
     menu?: MenuUpdateOneWithoutDetailInput;
 
-    @Field(() => DetailOnOptionsUpdateManyWithoutDetailInput, {nullable:true})
-    options?: DetailOnOptionsUpdateManyWithoutDetailInput;
+    @Field(() => DetailOnOptionUpdateManyWithoutDetailInput, {nullable:true})
+    options?: DetailOnOptionUpdateManyWithoutDetailInput;
 }

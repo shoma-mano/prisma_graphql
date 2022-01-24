@@ -20,7 +20,7 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UserResolver {
   constructor(
     private userService: UserService,
-    private prisma: PrismaService
+    private prisma: PrismaService,
   ) {}
 
   @Query(() => User)
@@ -32,7 +32,7 @@ export class UserResolver {
   @Mutation(() => User)
   async updateUser(
     @UserEntity() user: User,
-    @Args('data') newUserData: UpdateUserInput
+    @Args('data') newUserData: UpdateUserInput,
   ) {
     return this.userService.updateUser(user.id, newUserData);
   }
@@ -41,17 +41,12 @@ export class UserResolver {
   @Mutation(() => User)
   async changePassword(
     @UserEntity() user: User,
-    @Args('data') changePassword: ChangePasswordInput
+    @Args('data') changePassword: ChangePasswordInput,
   ) {
     return this.userService.changePassword(
       user.id,
       user.password,
-      changePassword
+      changePassword,
     );
-  }
-
-  @ResolveField('posts')
-  posts(@Parent() author: User) {
-    return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
   }
 }

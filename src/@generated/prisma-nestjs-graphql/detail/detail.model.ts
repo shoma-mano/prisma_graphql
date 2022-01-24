@@ -3,7 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Menu } from '../menu/menu.model';
-import { DetailOnOptions } from '../detail-on-options/detail-on-options.model';
+import { DetailOnOption } from '../detail-on-option/detail-on-option.model';
 import { DetailCount } from './detail-count.output';
 
 /** 商品詳細ページ */
@@ -34,8 +34,8 @@ export class Detail {
     @Field(() => Menu, {nullable:true})
     menu?: Menu | null;
 
-    @Field(() => [DetailOnOptions], {nullable:true})
-    options?: Array<DetailOnOptions>;
+    @Field(() => [DetailOnOption], {nullable:true})
+    options?: Array<DetailOnOption>;
 
     @Field(() => DetailCount, {nullable:false})
     _count?: DetailCount;

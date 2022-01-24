@@ -1,10 +1,14 @@
 import { PrismaClient } from '@prisma/client';
+import { Item } from '../src/@generated/prisma-nestjs-graphql/item/item.model';
+import { CreateMenuInput } from '../src/menu/dto/create-menu.input';
 
 const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
-  await prisma.post.deleteMany();
+  await prisma.storesOnMenus.deleteMany();
+  await prisma.store.deleteMany();
+  await prisma.menu.deleteMany();
 
   console.log('Seeding...');
 
@@ -15,13 +19,6 @@ async function main() {
       lastname: 'Simpson',
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
       role: 'USER',
-      posts: {
-        create: {
-          title: 'Join us for Prisma Day 2019 in Berlin',
-          content: 'https://www.prisma.io/day/',
-          published: true,
-        },
-      },
     },
   });
   const user2 = await prisma.user.create({
@@ -31,24 +28,69 @@ async function main() {
       lastname: 'Simpson',
       role: 'ADMIN',
       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-      posts: {
-        create: [
-          {
-            title: 'Subscribe to GraphQL Weekly for community news',
-            content: 'https://graphqlweekly.com/',
-            published: true,
-          },
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma',
-            published: false,
-          },
-        ],
-      },
     },
   });
 
-  console.log({ user1, user2 });
+  const menus: CreateMenuInput[] = [
+    {
+      img: 'test',
+      name: '絶品チーズバーガー',
+      category: 'バーガー',
+    },
+    {
+      img: 'test',
+      name: '絶品ベーコンチーズバーガー',
+      category: 'バーガー',
+    },
+  ];
+
+  const menusResult = await Promise.all(
+    menus.map(async (v) => {
+      return await prisma.menu.create({
+        data: v,
+      });
+    }),
+  );
+
+  // const store = await prisma.store.create({
+  //   data: {
+  //     name: 'ロッテリア',
+  //     img: 'test',
+  //     latitude: 135,
+  //     longitude: 135,
+  //     menus: {
+  //       create: menusResult.map((menu) => ({
+  //         menuId: menu.id,
+  //         isActive: true,
+  //       })),
+  //     },
+  //   },
+  //   include: {
+  //     menus: true,
+  //   },
+  // });
+
+  for (let i = 0; i < 100; i++) {
+    await prisma.store.create({
+      data: {
+        name: 'ロッテリア' + i,
+        img: 'test',
+        latitude: 135,
+        longitude: 135,
+        menus: {
+          create: menusResult.map((menu) => ({
+            menuId: menu.id,
+            isActive: Math.random() < 0.5,
+          })),
+        },
+      },
+      include: {
+        menus: true,
+      },
+    });
+  }
+
+  console.dir({ menusResult }, { depth: null });
 }
 
 main()

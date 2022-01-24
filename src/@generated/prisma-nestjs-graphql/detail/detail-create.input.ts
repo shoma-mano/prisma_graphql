@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { MenuCreateNestedOneWithoutDetailInput } from '../menu/menu-create-nested-one-without-detail.input';
-import { DetailOnOptionsCreateNestedManyWithoutDetailInput } from '../detail-on-options/detail-on-options-create-nested-many-without-detail.input';
+import { DetailOnOptionCreateNestedManyWithoutDetailInput } from '../detail-on-option/detail-on-option-create-nested-many-without-detail.input';
 
 @InputType()
 export class DetailCreateInput {
@@ -28,6 +28,6 @@ export class DetailCreateInput {
     @Field(() => MenuCreateNestedOneWithoutDetailInput, {nullable:true})
     menu?: MenuCreateNestedOneWithoutDetailInput;
 
-    @Field(() => DetailOnOptionsCreateNestedManyWithoutDetailInput, {nullable:true})
-    options?: DetailOnOptionsCreateNestedManyWithoutDetailInput;
+    @Field(() => DetailOnOptionCreateNestedManyWithoutDetailInput, {nullable:true})
+    options?: DetailOnOptionCreateNestedManyWithoutDetailInput;
 }

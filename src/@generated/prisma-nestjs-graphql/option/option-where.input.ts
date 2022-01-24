@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { DetailOnOptionsListRelationFilter } from '../detail-on-options/detail-on-options-list-relation-filter.input';
+import { DetailOnOptionListRelationFilter } from '../detail-on-option/detail-on-option-list-relation-filter.input';
 
 @InputType()
 export class OptionWhereInput {
@@ -29,6 +29,6 @@ export class OptionWhereInput {
     @Field(() => StringFilter, {nullable:true})
     name?: StringFilter;
 
-    @Field(() => DetailOnOptionsListRelationFilter, {nullable:true})
-    details?: DetailOnOptionsListRelationFilter;
+    @Field(() => DetailOnOptionListRelationFilter, {nullable:true})
+    details?: DetailOnOptionListRelationFilter;
 }

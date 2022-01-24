@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { StoresOnMenusUncheckedCreateNestedManyWithoutMenuInput } from '../stores-on-menus/stores-on-menus-unchecked-create-nested-many-without-menu.input';
 
 @InputType()
 export class MenuUncheckedCreateWithoutDetailInput {
@@ -22,4 +23,7 @@ export class MenuUncheckedCreateWithoutDetailInput {
 
     @Field(() => String, {nullable:false})
     category!: string;
+
+    @Field(() => StoresOnMenusUncheckedCreateNestedManyWithoutMenuInput, {nullable:true})
+    stores?: StoresOnMenusUncheckedCreateNestedManyWithoutMenuInput;
 }

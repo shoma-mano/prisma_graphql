@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { DetailOnOptionsUpdateManyWithoutOptionInput } from '../detail-on-options/detail-on-options-update-many-without-option.input';
+import { DetailOnOptionUpdateManyWithoutOptionInput } from '../detail-on-option/detail-on-option-update-many-without-option.input';
 
 @InputType()
 export class OptionUpdateInput {
@@ -14,6 +14,6 @@ export class OptionUpdateInput {
     @Field(() => String, {nullable:true})
     name?: string;
 
-    @Field(() => DetailOnOptionsUpdateManyWithoutOptionInput, {nullable:true})
-    details?: DetailOnOptionsUpdateManyWithoutOptionInput;
+    @Field(() => DetailOnOptionUpdateManyWithoutOptionInput, {nullable:true})
+    details?: DetailOnOptionUpdateManyWithoutOptionInput;
 }

@@ -11,8 +11,12 @@ export class MenuService {
     return await this.prisma.menu.create({ data: { ...createMenuInput } });
   }
 
-  findAll() {
-    return `This action returns all menu`;
+  async findAll() {
+    return await this.prisma.menu.findMany({
+      include: {
+        stores: true,
+      },
+    });
   }
 
   findOne(id: number) {

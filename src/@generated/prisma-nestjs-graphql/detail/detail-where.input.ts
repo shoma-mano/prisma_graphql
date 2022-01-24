@@ -4,7 +4,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { MenuRelationFilter } from '../menu/menu-relation-filter.input';
-import { DetailOnOptionsListRelationFilter } from '../detail-on-options/detail-on-options-list-relation-filter.input';
+import { DetailOnOptionListRelationFilter } from '../detail-on-option/detail-on-option-list-relation-filter.input';
 
 @InputType()
 export class DetailWhereInput {
@@ -42,6 +42,6 @@ export class DetailWhereInput {
     @Field(() => MenuRelationFilter, {nullable:true})
     menu?: MenuRelationFilter;
 
-    @Field(() => DetailOnOptionsListRelationFilter, {nullable:true})
-    options?: DetailOnOptionsListRelationFilter;
+    @Field(() => DetailOnOptionListRelationFilter, {nullable:true})
+    options?: DetailOnOptionListRelationFilter;
 }

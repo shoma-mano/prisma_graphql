@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
-import { PostUncheckedCreateNestedManyWithoutAuthorInput } from '../post/post-unchecked-create-nested-many-without-author.input';
 
 @InputType()
 export class UserUncheckedCreateInput {
@@ -29,7 +28,4 @@ export class UserUncheckedCreateInput {
 
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
-
-    @Field(() => PostUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
 }

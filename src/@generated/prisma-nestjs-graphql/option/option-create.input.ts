@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { DetailOnOptionsCreateNestedManyWithoutOptionInput } from '../detail-on-options/detail-on-options-create-nested-many-without-option.input';
+import { DetailOnOptionCreateNestedManyWithoutOptionInput } from '../detail-on-option/detail-on-option-create-nested-many-without-option.input';
 
 @InputType()
 export class OptionCreateInput {
@@ -14,6 +14,6 @@ export class OptionCreateInput {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => DetailOnOptionsCreateNestedManyWithoutOptionInput, {nullable:true})
-    details?: DetailOnOptionsCreateNestedManyWithoutOptionInput;
+    @Field(() => DetailOnOptionCreateNestedManyWithoutOptionInput, {nullable:true})
+    details?: DetailOnOptionCreateNestedManyWithoutOptionInput;
 }

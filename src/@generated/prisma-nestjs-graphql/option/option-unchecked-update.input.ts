@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { DetailOnOptionsUncheckedUpdateManyWithoutOptionInput } from '../detail-on-options/detail-on-options-unchecked-update-many-without-option.input';
+import { DetailOnOptionUncheckedUpdateManyWithoutOptionInput } from '../detail-on-option/detail-on-option-unchecked-update-many-without-option.input';
 
 @InputType()
 export class OptionUncheckedUpdateInput {
@@ -18,6 +18,6 @@ export class OptionUncheckedUpdateInput {
     @Field(() => String, {nullable:true})
     name?: string;
 
-    @Field(() => DetailOnOptionsUncheckedUpdateManyWithoutOptionInput, {nullable:true})
-    details?: DetailOnOptionsUncheckedUpdateManyWithoutOptionInput;
+    @Field(() => DetailOnOptionUncheckedUpdateManyWithoutOptionInput, {nullable:true})
+    details?: DetailOnOptionUncheckedUpdateManyWithoutOptionInput;
 }

@@ -19,15 +19,6 @@ export class DetailService {
     return await this.prisma.detail.findMany();
   }
 
-  async findByOptionId(id: number) {
-    return await this.prisma.detailOnOptions.findMany({
-      where: {
-        detail: {
-          id: { in: [id] },
-        },
-      },
-    });
-  }
 
   async findByOptionID(id: number) {
     return await this.prisma.detail.findMany({

@@ -1,9 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Post } from '../post/post.model';
 import { Role } from '../prisma/role.enum';
-import { UserCount } from './user-count.output';
 
 @ObjectType()
 export class User {
@@ -30,12 +28,6 @@ export class User {
     @Field(() => String, {nullable:true,description:'苗字'})
     lastname!: string | null;
 
-    @Field(() => [Post], {nullable:true})
-    posts?: Array<Post>;
-
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
-
-    @Field(() => UserCount, {nullable:false})
-    _count?: UserCount;
 }
